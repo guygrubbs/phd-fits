@@ -91,7 +91,13 @@ class FilenameParser:
             
             # Pattern for voltage and energy files
             'voltage_energy': re.compile(
-                r'ACI\s+ESA\s+(?P<esa_voltage>\d+)V\s+(?P<beam_energy>\d+(?:\.\d+)?k?[eE]V)\s+BEAM'
+                r'ACI\s+ESA\s+(?P<esa_voltage>\d+)V\s+(?P<beam_energy>\d+(?:\.\d+)?[kK]?[eE]V)\s+BEAM'
+                r'(?P<timestamp>\d{6}-\d{6})?'
+            ),
+
+            # Pattern for beam prep files
+            'beam_prep': re.compile(
+                r'ACI\s+ESA\s+(?P<beam_energy>\d+(?:\.\d+)?[kK]?[eE]V)\s+BEAM\s+PREP'
                 r'(?P<timestamp>\d{6}-\d{6})?'
             ),
             
@@ -253,10 +259,11 @@ class FilenameParser:
     
     def _parse_energy(self, energy_str: str) -> tuple[float, str]:
         """Parse energy string and return value and unit."""
-        if energy_str.endswith('keV') or energy_str.endswith('kEV'):
+        if (energy_str.endswith('keV') or energy_str.endswith('kEV') or
+            energy_str.endswith('KEV') or energy_str.endswith('KeV')):
             value = float(energy_str[:-3])
             return value * 1000, 'eV'  # Convert to eV
-        elif energy_str.endswith('eV'):
+        elif energy_str.endswith('eV') or energy_str.endswith('EV'):
             value = float(energy_str[:-2])
             return value, 'eV'
         else:
