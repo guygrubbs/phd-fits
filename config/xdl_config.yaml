@@ -1,0 +1,36 @@
+analysis:
+  adc_bin_range: !!python/tuple
+  - 10
+  - 250
+  adc_normalization_mode: area
+  correlation_threshold: 0.5
+  default_colormap: viridis
+  figure_dpi: 300
+  figure_format: png
+  fits_contrast_range: !!python/tuple
+  - 1
+  - 99
+  fits_normalization_mode: percentile
+  include_empty_files: false
+  max_file_size_mb: 100.0
+  min_data_density: 0.0
+  min_group_size: 2
+  save_intermediate_results: true
+logging:
+  console_level: INFO
+  date_format: '%Y-%m-%d %H:%M:%S'
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  level: INFO
+  log_file_backup_count: 5
+  log_file_max_size: 10485760
+  log_to_console: true
+  log_to_file: true
+paths:
+  cache_directory: cache
+  config_directory: config
+  data_directory: data
+  fits_pattern: '*.fits'
+  log_directory: logs
+  map_pattern: '*.map'
+  output_directory: results
+  phd_pattern: '*.phd'
